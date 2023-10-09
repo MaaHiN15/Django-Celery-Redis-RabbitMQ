@@ -1,0 +1,44 @@
+version: '2.8'
+
+services:
+  redis:
+    container_name: redis
+    image: redis:7.0.11-alpine
+  
+  rmq:
+    container_name: rmq
+    image: rabbitmq:3.12-management-alpine
+    environment:
+    - RABBITMQ_DEFAULT_USER=guest
+    - RABBITMQ_DEFAULT_PASS=guest
+    ports:
+    - 5672:5672
+    - 15672:15672
+
+
+  django:
+    container_name: django
+    ports:
+    - 8000:8000
+    restart: always
+    build:
+      context: ./myproject
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+    - ./myproject:/usr/src/app
+    depends_on:
+    - redis
+    - rmq
+
+  celery:
+    container_name: celery
+    build:
+      context: ./myproject
+    command: celery --app=myproject worker -l INFO 
+    volumes:
+    - ./myproject:/usr/src/app
+    depends_on:
+    - redis
+    - django
+    - rmq
+

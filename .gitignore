@@ -2,4 +2,5 @@ env/*
 myproject/myapp/__pycache__
 myproject/myapp/migrations
 myproject/__pycache__
+myproject/myproject/__pycache__
 
