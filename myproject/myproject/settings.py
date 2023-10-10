@@ -128,20 +128,20 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CELERY_BROKER_URL = os.environ.get("CELERY_BROKER", "amqp://guest:guest@rmq:5672")
 CELERY_RESULT_BACKEND = os.environ.get("CELERY_BACKEND", "redis://redis:6379/1")
 
-CELERY_TASK_QUEUES = {
-    'high_priority': {
-        'exchange': 'high_priority',
-        'exchange_type': 'direct',
-        'binding_key': 'high_priority'
-    },
-    'medium_priority': {
-        'exchange': 'medium_priority',
-        'exchange_type': 'direct',
-        'binding_key': 'medium_priority'
-    },
-    'low_priority': {
-        'exchange': 'low_priority',
-        'exchange_type': 'direct',
-        'binding_key': 'low_priority'
-    }
-}
+# CELERY_TASK_QUEUES = {
+#     'high_priority': {
+#         'exchange': 'high_priority',
+#         'exchange_type': 'direct',
+#         'binding_key': 'high_priority'
+#     },
+#     'medium_priority': {
+#         'exchange': 'medium_priority',
+#         'exchange_type': 'direct',
+#         'binding_key': 'medium_priority'
+#     },
+#     'low_priority': {
+#         'exchange': 'low_priority',
+#         'exchange_type': 'direct',
+#         'binding_key': 'low_priority'
+#     }
+# }

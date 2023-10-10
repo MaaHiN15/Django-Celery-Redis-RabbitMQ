@@ -4,6 +4,17 @@ services:
   redis:
     container_name: redis
     image: redis:7.0.11-alpine
+
+  flower:
+    container_name: flower
+    image: mher/flower
+    ports:
+    - 5555:5555
+    environment:
+    - CELERY_BROKER_URL=amqp://guest:guest@rmq:5672
+    depends_on:
+    - celery
+
   
   rmq:
     container_name: rmq
@@ -35,7 +46,7 @@ services:
     container_name: celery
     build:
       context: ./myproject
-    command: celery --app=myproject worker -l INFO 
+    command: celery --app=myproject worker -l INFO -Q task
     volumes:
     - ./myproject:/usr/src/app
     depends_on:
