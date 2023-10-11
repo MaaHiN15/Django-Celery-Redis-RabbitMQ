@@ -57,6 +57,17 @@ services:
     - mongo
     - rmq
 
+  celerybeat:
+    container_name: celerybeat
+    build:
+      context: ./myproject
+    command: celery --app=myproject beat -l INFO 
+    volumes:
+    - ./myproject:/usr/src/app
+    depends_on:
+    - mongo
+    - rmq
+
   flower:
     container_name: flower
     image: mher/flower

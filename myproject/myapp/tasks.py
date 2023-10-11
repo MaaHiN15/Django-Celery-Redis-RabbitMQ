@@ -1,6 +1,5 @@
 from celery import shared_task
 
-
 # @shared_task(priority=0, queue='task')
 # def h():
 #     time.sleep(3)
@@ -91,7 +90,12 @@ from celery import shared_task
 
 
 import time
-@shared_task(queue='task', )
+@shared_task(queue='task')
 def delay_task(d_sec):
     time.sleep(d_sec)
     return 'Hello'
+
+
+@shared_task(queue='task')
+def test(arg):
+    print(arg)
